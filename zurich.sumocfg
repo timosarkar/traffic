@@ -1,0 +1,12 @@
+<configuration>
+    <input>
+        <net-file value="zurich.net.xml"/>
+        <route-files value="zurich.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+    <!-- TraCI settings (optional, if controlling the simulation programmatically) -->
+</configuration>
