@@ -10,7 +10,7 @@ from collections import deque
 # Constants
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 800
-FPS = 60
+FPS = 120
 ROAD_WIDTH = 80
 VEHICLE_SIZE = (20, 40)
 MAX_VEHICLES = 50
