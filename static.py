@@ -6,7 +6,7 @@ import random
 # World setup
 seed = None
 W = World(
-    name="simple-cross",
+    name="-static",
     deltan=5,
     tmax=3600,
     print_mode=1, save_mode=0, show_mode=0,

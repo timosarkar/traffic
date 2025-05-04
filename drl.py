@@ -71,7 +71,7 @@ class TrafficSim(gym.Env):
             tmax=4000, # totale simulationszeit in sekunden
             print_mode=0, # deaktivieren der ausgabe von informationen während dem training
             save_mode=0, # deaktivieren der speicherung von visualisierungen
-            show_mode=1, # aktivieren der ausgabe von visualisierungen
+            show_mode=0, # aktivieren der ausgabe von visualisierungen
             random_seed=1, # 1 oder 0: zufälligkeitsfaktor der simulation. 1 -> deterministischere simulationen -> modell lernt schneller
             duo_update_time=600
         )
