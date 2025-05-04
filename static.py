@@ -3,69 +3,49 @@ import pandas as pd
 import itertools
 import random
 
-"""
-let’s simulate arterial network with 4 intersections. The shape of the network is as follows.
-"""
-# world definition
+# World setup
 seed = None
 W = World(
-    name="-static",
+    name="simple-cross",
     deltan=5,
     tmax=3600,
-    print_mode=1, save_mode=0, show_mode=1,
+    print_mode=1, save_mode=0, show_mode=0,
     random_seed=seed,
     duo_update_time=600
 )
 random.seed(seed)
 
-# network definition
-"""
-    N1  N2
-    |   |
-W1--I1--I2--E1
-    |   |
-W2--I3--I4--E2
-    |   |
-    S1  S2
-"""
+# Nodes: One intersection and four boundary nodes
+I = W.addNode("I", 0, 0, signal=[60, 60])  # Two phases: E-W and N-S
+Wn = W.addNode("W", -1, 0)
+En = W.addNode("E", 1, 0)
+Nn = W.addNode("N", 0, 1)
+Sn = W.addNode("S", 0, -1)
 
-I1 = W.addNode("I1", 0, 0, signal=[60,60])
-I2 = W.addNode("I2", 1, 0, signal=[60,60])
-I3 = W.addNode("I3", 0, -1, signal=[60,60])
-I4 = W.addNode("I4", 1, -1, signal=[60,60])
-W1 = W.addNode("W1", -1, 0)
-W2 = W.addNode("W2", -1, -1)
-E1 = W.addNode("E1", 2, 0)
-E2 = W.addNode("E2", 2, -1)
-N1 = W.addNode("N1", 0, 1)
-N2 = W.addNode("N2", 1, 1)
-S1 = W.addNode("S1", 0, -2)
-S2 = W.addNode("S2", 1, -2)
-#E <-> W direction: signal group 0
-for n1,n2 in [[W1, I1], [I1, I2], [I2, E1], [W2, I3], [I3, I4], [I4, E2]]:
-    W.addLink(n1.name+n2.name, n1, n2, length=500, free_flow_speed=10, jam_density=0.2, signal_group=0)
-    W.addLink(n2.name+n1.name, n2, n1, length=500, free_flow_speed=10, jam_density=0.2, signal_group=0)
-#N <-> S direction: signal group 1
-for n1,n2 in [[N1, I1], [I1, I3], [I3, S1], [N2, I2], [I2, I4], [I4, S2]]:
-    W.addLink(n1.name+n2.name, n1, n2, length=500, free_flow_speed=10, jam_density=0.2, signal_group=1)
-    W.addLink(n2.name+n1.name, n2, n1, length=500, free_flow_speed=10, jam_density=0.2, signal_group=1)
+# Links: bidirectional, signal groups
+# E-W direction: signal group 0
+for n1, n2 in [[Wn, I], [I, En]]:
+    W.addLink(n1.name + n2.name, n1, n2, length=500, free_flow_speed=10, jam_density=0.2, signal_group=0)
+    W.addLink(n2.name + n1.name, n2, n1, length=500, free_flow_speed=10, jam_density=0.2, signal_group=0)
 
-# random demand definition
+# N-S direction: signal group 1
+for n1, n2 in [[Nn, I], [I, Sn]]:
+    W.addLink(n1.name + n2.name, n1, n2, length=500, free_flow_speed=10, jam_density=0.2, signal_group=1)
+    W.addLink(n2.name + n1.name, n2, n1, length=500, free_flow_speed=10, jam_density=0.2, signal_group=1)
+
+# Demand setup: from each direction to every other
 dt = 30
-demand = 0.22
-for n1, n2 in itertools.permutations([W1, W2, E1, E2, N1, N2, S1, S2], 2):
+demand = 1
+boundary_nodes = [Wn, En, Nn, Sn]
+for n1, n2 in itertools.permutations(boundary_nodes, 2):
     for t in range(0, 3600, dt):
         W.adddemand(n1, n2, t, t+dt, random.uniform(0, demand))
 
-
-"""
-Each signal has 2 phases: greenlight for E-W direction and that for N-S. The demand is randomly given, and its mean is evenly distribuded from each boundary node to every others. Because of this even distribution, each green split (duration) is set as the same: 60 seconds.
-"""
-# simulation
+# Run simulation
 W.exec_simulation()
 
-# resutls
+# Outputs
 W.analyzer.print_simple_stats()
 W.analyzer.macroscopic_fundamental_diagram()
-W.analyzer.time_space_diagram_traj_links([["W1I1", "I1I2", "I2E1"], ["N1I1", "I1I3", "I3S1"]])
-W.analyzer.network_anim(detailed=1, network_font_size=0, figsize=(6,6))
+W.analyzer.time_space_diagram_traj_links([["WI", "IE"], ["NI", "IS"]])
+W.analyzer.network_anim(detailed=1, network_font_size=0, figsize=(5, 5))
