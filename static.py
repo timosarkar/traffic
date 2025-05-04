@@ -9,7 +9,7 @@ let’s simulate arterial network with 4 intersections. The shape of the network
 # world definition
 seed = None
 W = World(
-    name="",
+    name="static-model",
     deltan=5,
     tmax=3600,
     print_mode=1, save_mode=0, show_mode=1,

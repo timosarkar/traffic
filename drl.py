@@ -67,7 +67,7 @@ class TrafficSim(gym.Env):
         """
         seed = None #whether demand is always random or not
         W = World(
-            name="",
+            name="DRL-model",
             deltan=5,
             tmax=4000,
             print_mode=0, save_mode=0, show_mode=1,
