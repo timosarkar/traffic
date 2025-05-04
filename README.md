@@ -3,6 +3,15 @@
 Ein Ansatz zur Effizienzsteigerung des Verkehrsstaus im öffentlichen Strassenverkehr in der Stadt Zürich unter Verwendung von **Deep Reinforcement-QLearning Networks** (DRQN).
 
 
+## Statische Simulation
+
+![gif](https://raw.githubusercontent.com/timosarkar/traffic/refs/heads/master/out-static/anim_network1.gif)
+
+
+## DRQN Simulation
+
+![gif](https://raw.githubusercontent.com/timosarkar/traffic/refs/heads/master/out-drl/anim_network1.gif)
+
 
 | **Einheit**                     | **KI-Modell**     | **Statisches Modell**        | **Verbesserung**                        |
 |--------------------------------|-------------------|-------------------------------|------------------------------------------|
