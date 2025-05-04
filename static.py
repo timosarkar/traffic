@@ -16,6 +16,11 @@ W = World(
 random.seed(seed)
 
 # Nodes: One intersection and four boundary nodes
+"""
+60 seconds green for East–West (signal group 0)
+
+60 seconds green for North–South (signal group 1)
+"""
 I = W.addNode("I", 0, 0, signal=[60, 60])  # Two phases: E-W and N-S
 Wn = W.addNode("W", -1, 0)
 En = W.addNode("E", 1, 0)
