@@ -65,16 +65,17 @@ class TrafficSim(gym.Env):
         """
         reset the env
         """
-        seed = None #whether demand is always random or not
         W = World(
-            name="DRL-model",
-            deltan=5,
-            tmax=4000,
-            print_mode=0, save_mode=0, show_mode=1,
-            random_seed=seed,
+            name="-drl", # name der simulation
+            deltan=5, # wert welcher definiert wie viele autos im verkehr gruppiert werden
+            tmax=4000, # totale simulationszeit in sekunden
+            print_mode=0, # deaktivieren der ausgabe von informationen während dem training
+            save_mode=0, # deaktivieren der speicherung von visualisierungen
+            show_mode=1, # aktivieren der ausgabe von visualisierungen
+            random_seed=1, # 1 oder 0: zufälligkeitsfaktor der simulation. 1 -> deterministischere simulationen -> modell lernt schneller
             duo_update_time=600
         )
-        random.seed(seed)
+        random.seed(None)
 
         #network definition
         I1 = W.addNode("I1", 0, 0, signal=[60,60])
