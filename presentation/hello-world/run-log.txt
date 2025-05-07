@@ -1,0 +1,30 @@
+simulation setting:
+ scenario name: -static
+ simulation duration:	 3600 s
+ number of vehicles:	 18510 veh
+ total road length:	 4000 m
+ time discret. width:	 5 s
+ platoon size:		 5 veh
+ number of timesteps:	 720
+ number of platoons:	 3702
+ number of links:	 8
+ number of nodes:	 5
+ setup time:		 0.20 s
+simulating...
+      time| # of vehicles| ave speed| computation time
+       0 s|        0 vehs|   0.0 m/s|     0.00 s
+     600 s|      320 vehs|   4.1 m/s|     1.03 s
+    1200 s|      330 vehs|   3.9 m/s|     2.07 s
+    1800 s|      330 vehs|   3.9 m/s|     3.07 s
+    2400 s|      335 vehs|   4.0 m/s|     4.26 s
+    3000 s|      325 vehs|   4.2 m/s|     5.62 s
+    3600 s|      330 vehs|   4.1 m/s|     6.89 s
+ simulation finished
+results:
+ average speed:	 5.2 m/s
+ number of completed trips:	 4725 / 18510
+ average travel time of trips:	 1373.2 s
+ average delay of trips:	 1273.2 s
+ delay ratio:			 0.927
+ total distance traveled:	 5010875.0 m
+ drawing trajectories...
