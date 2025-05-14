@@ -70,4 +70,9 @@ W.adddemand_area2area2(8.65, 47.30, 0, 8.40, 47.45, 0.04, 0, 3600, volume=120000
 
 W.exec_simulation()
 W.analyzer.print_simple_stats()
-W.analyzer.network_anim(animation_speed_inverse=20, detailed=1, network_font_size=1)
+W.analyzer.network_anim(
+    animation_speed_inverse=20,
+    detailed=1,
+    network_font_size=12,
+    figsize=(12, 10)
+)
