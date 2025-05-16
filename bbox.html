@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet Map with BBox and Coordinate Checker</title>
+    <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/>
+    <style>
+        #osm-map {
+            height: 700px;
+            margin-bottom: 10px;
+        }
+        #controls {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="osm-map"></div>
+
+<div id="controls">
+    <label>Longitude: <input type="number" id="lng" step="0.0001"></label>
+    <label>Latitude: <input type="number" id="lat" step="0.0001"></label>
+    <button onclick="checkWithinBounds()">Check</button>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<script>
+    // Initialize map
+    var element = document.getElementById('osm-map');
+    var map = L.map(element);
+
+    // Add tile layer
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Define new bounding box (Southwest and Northeast corners)
+    var bounds = L.latLngBounds(
+        L.latLng(47.30, 8.40), // Southwest
+        L.latLng(47.45, 8.65)  // Northeast
+    );
+
+    // Fit map to bounding box
+    map.fitBounds(bounds);
+
+    // Draw rectangle for bounding box
+    L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(map);
+
+    function checkWithinBounds() {
+        var lng = parseFloat(document.getElementById('lng').value);
+        var lat = parseFloat(document.getElementById('lat').value);
+
+        if (isNaN(lng) || isNaN(lat)) {
+            alert("Please enter valid numbers for both longitude and latitude.");
+            return;
+        }
+
+        var point = L.latLng(lat, lng);
+        var isInside = bounds.contains(point);
+
+        alert(isInside ? "The point is within the bounding box." : "The point is outside the bounding box.");
+    }
+</script>
+
+</body>
+</html>
