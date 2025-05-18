@@ -173,7 +173,7 @@ nodes, links = OSMImporter.osm_network_postprocessing(
 OSMImporter.osm_network_to_World(
     W, nodes, links,
     default_jam_density=0.2,
-    coef_degree_to_meter=111000
+    coef_degree_to_meter=111000 # coef_degree_to_meter (float) – The coefficient to convert lon/lat degree to meter. Default is 111000.
 )
 
 OSMImporter.osm_network_visualize(nodes, links, show_link_name=1)
@@ -181,6 +181,15 @@ OSMImporter.osm_network_visualize(nodes, links, show_link_name=1)
 # =========================
 # TRAFFIC SETUP
 # =========================
+core_loops = [
+    (8.53, 47.36, 8.55, 47.38),
+    (8.50, 47.35, 8.52, 47.37),
+    (8.56, 47.35, 8.58, 47.38)
+]
+
+for x1, y1, x2, y2 in core_loops:
+    for _ in range(10):  # repeat to intensify local pressure
+        W.adddemand_area2area2(x1, y1, 0, x2, y2, 0.005, 0, 3600, volume=5000)
 
 # A. FROM OUTSIDE INTO CITY CENTER (intercity inbound)
 W.adddemand_area2area2(8.40, 47.29, 0, 8.54, 47.37, 0.03, 0, 3600, volume=10000)  # South
