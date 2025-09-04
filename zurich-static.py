@@ -165,4 +165,6 @@ for origin in node_ids_subset:
 W.show_network(network_font_size=1, show_id=False)
 W.exec_simulation()
 W.analyzer.print_simple_stats()
+W.analyzer.network_fancy(animation_speed_inverse=10, sample_ratio=0.2, interval=5, trace_length=10, figsize=6, antialiasing=False)
 W.analyzer.network_anim(animation_speed_inverse=15, timestep_skip=30, detailed=0, figsize=(6,6), network_font_size=0)
+
